@@ -1,0 +1,167 @@
+
+{% extends "language/layout.html" %}
+{% load static %}
+{% load embed_video_tags %}
+
+
+
+
+
+
+{% block content %}
+
+<style>
+
+  
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+  
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+  
+  
+      
+  .commensection{
+      width: 5rem;
+  }
+  
+    </style>
+
+
+
+
+<main>
+
+
+
+  
+
+ 
+
+
+
+<div class="kurs"> 
+ 
+</div>
+
+
+
+</div>
+
+
+</div>
+
+<div class="rews"> 
+
+  
+
+  {% if user in superuser %}
+
+
+  <form method="POST" action="{% url 'send-review' %}" class="toComment d-none"> 
+    {% csrf_token %}
+
+    <div class="d-flex flex-column justify-content-center align-items-center py-3 ">
+      {{form.title}}
+
+      {{form.comment}}
+    <input type="submit" value="Comment" class="btn btn-secondary my-3"/>
+
+
+  </div>
+
+  </form> 
+
+  
+  {% endif %}
+
+</div>
+
+
+
+<div class="courses"> 
+  
+
+
+
+  
+  
+
+
+</div>
+
+
+
+    <div class="container py-4">
+      <header class="pb-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+          <span class="fs-4">Hello {{user}}</span>
+        </a>
+      </header>
+
+  
+
+  
+      <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Your finished quizzes</h2>
+
+            {% for quiz in profile.finished_quizzes.all %}
+            <p>{{quiz}}  <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+              <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+            </svg> </p>
+            {% endfor %}
+            <h2>{{profile.finished_quizzes.all.count}} quizzes finished
+            </h2>
+            <p> From {{quizzes.count}} available quizzes </p>
+
+           <a href="#" id="button_quizzes"> <button class="btn btn-outline-light" type="button">Do more!</button></a> 
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-3">
+           
+            <h2>Your finished courses</h2>
+
+            {% for course in profile.finished_courses.all %}
+            <p>  {{course}} <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+              <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+            </svg> </p>
+            {% endfor %}
+
+            <h3>{{profile.finished_courses.all.count}} courses finished </h3>
+
+            <p> From {{courses.count}} available courses </p>
+            <a href="#" id="coursesButton1"> <button class="btn btn-outline-light" type="button">Do more!</button></a> 
+          </div>
+        </div>
+      </div>
+  
+      <footer class="pt-3 mt-4 text-muted border-top">
+        &copy; 2021
+      </footer>
+    </div>
+  </main>
+
+
+  {% endblock %}
+
+
+  {% block script %}
+  <script src="{% static 'language/index.js' %}"></script>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,77 @@
+
+{% extends "language/layout.html" %}
+{% load static %}
+
+
+{% block navbarlist %}
+
+<div class="b-example-divider"></div>
+
+<header class="p-3 mb-3 border-bottom">
+<div class="container">
+  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+      </svg>    </a>
+
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+
+    </ul>
+
+    <div class="dropdown text-end">
+      <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://files.fm/thumb_show.php?i=zzepgvz5f" alt="mdo" width="32" height="32" class="rounded-circle">
+      </a>
+      <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#">New project...</a></li>
+        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</header>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="d-flex justify-content-center text-center py-3">
+
+<form class="w-25" action=" {% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+ 
+    {% for field in form %}
+    <label for="floatingInput">{{field.label}}</label>
+
+    <div class="form-floating">
+
+        <div class="form__field">
+          {{field}}   
+
+        </div>
+        </div>
+
+
+  {% endfor %}
+       
+     <button class="btn btn-info" type="submit">Edit</button>
+ 
+   </form>
+
+</div>
+
+
+  {% block script %}
+  <script src="{% static 'language/index.js' %}"></script>
+
+  {% endblock %}
+
+
+
+
+
+{% endblock %}

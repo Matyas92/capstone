@@ -1,0 +1,99 @@
+{% load static %}
+
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="{% static 'language/login.css' %} ">
+  </head>
+  <body class="text-center">
+
+
+
+
+<main class="form-signin">
+  {% if messages %}
+  {% for message in messages %}
+  
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  
+  {% endfor %}
+  {% endif %}
+  {% if page == 'register' %}
+
+
+
+  <h1 class="h3 mb-3 fw-normal">Register!</h1>
+
+  <form method="POST" action="{% url 'register' %}">
+    {% csrf_token %} 
+
+
+    {% for field in form %}
+    <label for="floatingInput">{{field.label}}</label>
+
+    <div class="form-floating">
+
+        <div class="form__field">
+          {{field}}   
+
+        </div>
+        </div>
+
+
+  {% endfor %}
+
+
+  <button class="w-100 btn btn-lg btn-success" type="submit">Register</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+
+</form>
+
+<h3>Already have an account?  <a href="{% url 'login' %}">Login!</a> </h3>
+
+  {% else %}
+
+
+  <form action="{% url 'login' %}" method="POST">
+   {% csrf_token %} 
+
+    <h1 class="h3 mb-3 fw-normal">Log in!</h1>
+
+    <div class="form-floating">
+      <input name="username" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating">
+      <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+   
+      
+    <button class="w-100 btn btn-lg btn-warning" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+
+    <p>You don't have account? <a href="{% url 'register' %}"> Register here! </a> </p>
+  </form>
+
+  {% endif %}
+
+
+</main>
+
+
+
+
+
+<script src="{% static 'language/index.js' %}"></script>
+
+
+

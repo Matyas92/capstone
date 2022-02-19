@@ -1,0 +1,159 @@
+
+
+
+{% extends "language/layout.html" %}
+{% load static %}
+
+{% load embed_video_tags %}
+
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+{% block navbarlist %}
+
+<div class="b-example-divider"></div>
+
+<header class="p-3 mb-3 border-bottom">
+<div class="container">
+  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+      </svg>    </a>
+
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+
+    </ul>
+
+    <div class="dropdown text-end">
+      <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+      </a>
+      <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#">New project...</a></li>
+        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</header>
+
+{% endblock %}
+
+  {% block content %}
+
+<div class="container py-4">
+  <header class="pb-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <span class="fs-4">User: <b>From user: {{the_course.user}} </b> </span>
+    </a>
+  </header>
+
+  <div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">{{the_course.title}} </h1>
+      <p class="col-md-8 fs-4">Read all the contents, then repeat after you have learnt the whole, then click to finish to get certificate.</p>
+   
+      <form class="my-5" action="{% url 'save-course-point' the_course %}" method="POST">
+        {% csrf_token %} 
+        <input type="submit" class="btn btn-success" name="" value="Finish!" id="">
+      </form>
+
+  <div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class="h-100 p-5 text-white bg-dark rounded-3">
+        <h2>{{profile.location}}</h2>
+        <p>{{the_course.content}}</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="h-100 p-5 bg-light border rounded-3">
+        <h1 class="display-3"> {% video the_course.video '550x400' %}</h1>
+
+
+   
+        <p>Video content</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pt-3 mt-4 text-muted border-top">
+    &copy; 2021
+  </footer>
+</div>
+</main>
+
+<form class="" action="" method="POST">
+  {% csrf_token %}
+
+  {{form.comment}}
+
+  <input class="btn btn-dark my-3 btn-lg" type="submit" name="" value="Comment" id="">
+
+</form>
+
+
+{% for comment in the_course.comment_set.all %}
+
+<div class="mb-3">
+
+
+    <p class="h4">FROM {{comment.user}} </p>
+    <p>  {{comment.date}}</p>
+
+   </div>
+  <div class="mb-3">
+    <textarea readonly class="form-control" id="" rows="4"> {{comment.comment}}</textarea>
+  </div>
+
+
+  {% endfor %}
+
+  
+
+  {% block script %}
+  <script src="{% static 'language/index.js' %}"></script>
+
+
+  {% endblock %}
+
+
+
+{% endblock %}
+
+
+
+{{the_course}}
+
